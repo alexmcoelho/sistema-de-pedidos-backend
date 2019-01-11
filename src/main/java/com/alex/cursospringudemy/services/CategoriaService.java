@@ -25,4 +25,9 @@ public class CategoriaService {
 		obj.setId(null);
 		return repo.save(obj);
 	}
+	
+	public Categoria update(Categoria obj) {
+		find(obj.getId()); //caso o id não existe lança uma exception
+		return repo.save(obj);
+	}
 }
