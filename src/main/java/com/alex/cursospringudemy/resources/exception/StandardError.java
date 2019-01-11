@@ -1,4 +1,4 @@
-package com.alex.cursospringudemy.services.exceptions;
+package com.alex.cursospringudemy.resources.exception;
 
 import java.io.Serializable;
 
