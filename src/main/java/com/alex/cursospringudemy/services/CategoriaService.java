@@ -1,14 +1,15 @@
 package com.alex.cursospringudemy.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import com.alex.cursospringudemy.services.exceptions.ExceptionDataIntegrityViolation;
 import org.springframework.stereotype.Service;
 
 import com.alex.cursospringudemy.domain.Categoria;
 import com.alex.cursospringudemy.repositories.CategoriaRepository;
+import com.alex.cursospringudemy.services.exceptions.ExceptionDataIntegrityViolation;
 import com.alex.cursospringudemy.services.exceptions.ObjectNotFoundException;
 
 
@@ -35,12 +36,15 @@ public class CategoriaService {
 	}
 	
 	public void delete(Integer id) {
-		find(id); //caso o id não existe lança uma exception
 		try {
 			repo.deleteById(id);
 		} catch(DataIntegrityViolationException e) {
 			throw new ExceptionDataIntegrityViolation("Não é possível excluir uma categoria que possuí produtos");
 		}
 		
+	}
+	
+	public List<Categoria> findAll(){
+		return repo.findAll();
 	}
 }
