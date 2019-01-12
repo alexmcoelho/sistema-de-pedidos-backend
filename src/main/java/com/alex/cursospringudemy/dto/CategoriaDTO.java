@@ -9,7 +9,6 @@ import org.hibernate.validator.constraints.Length;
 import com.alex.cursospringudemy.domain.Categoria;
 
 public class CategoriaDTO implements Serializable{
-	String teste = "";
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	@NotBlank(message="Preenchimento obrigatório")
