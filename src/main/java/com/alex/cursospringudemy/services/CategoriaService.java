@@ -35,15 +35,16 @@ public class CategoriaService {
 	}
 	
 	public Categoria update(Categoria obj) {
-		find(obj.getId()); //caso o id não existe lança uma exception
-		return repo.save(obj);
+		Categoria newObj = find(obj.getId()); //caso o id não existe lança uma exception
+		updateData(newObj, obj);
+		return repo.save(newObj);
 	}
 	
 	public void delete(Integer id) {
 		try {
 			repo.deleteById(id);
 		} catch(DataIntegrityViolationException e) {
-			throw new ExceptionDataIntegrityViolation("Não é possível excluir uma categoria que possuí produtos");
+			throw new ExceptionDataIntegrityViolation("Não é possível excluir um cliente que possuí pedidos");
 		}
 		
 	}
@@ -60,5 +61,9 @@ public class CategoriaService {
 	
 	public Categoria fromDTO(CategoriaDTO objDTO) {
 		return new Categoria(objDTO.getId(), objDTO.getNome());
+	}
+	
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
 	}
 }
