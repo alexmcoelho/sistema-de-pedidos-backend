@@ -43,6 +43,16 @@ public class ClienteNewDTO implements Serializable {
 
 	private Integer cidadeId;
 	
+	private String senha;
+	
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
 	public ClienteNewDTO() {
 	}
 
