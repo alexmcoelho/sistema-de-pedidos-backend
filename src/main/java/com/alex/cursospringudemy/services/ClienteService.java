@@ -15,12 +15,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alex.cursospringudemy.domain.Cidade;
 import com.alex.cursospringudemy.domain.Cliente;
 import com.alex.cursospringudemy.domain.Endereco;
+import com.alex.cursospringudemy.domain.enums.Perfil;
 import com.alex.cursospringudemy.domain.enums.TipoCliente;
 import com.alex.cursospringudemy.dto.ClienteDTO;
 import com.alex.cursospringudemy.dto.ClienteNewDTO;
 import com.alex.cursospringudemy.repositories.CategoriaRepository;
 import com.alex.cursospringudemy.repositories.ClienteRepository;
 import com.alex.cursospringudemy.repositories.EnderecoRepository;
+import com.alex.cursospringudemy.security.UserSS;
+import com.alex.cursospringudemy.services.exceptions.AuthorizationException;
 import com.alex.cursospringudemy.services.exceptions.ExceptionDataIntegrityViolation;
 import com.alex.cursospringudemy.services.exceptions.ObjectNotFoundException;
 
@@ -42,6 +45,10 @@ public class ClienteService {
 	}
 
 	public Cliente find(Integer id)  {
+		UserSS user = UserService.authenticated();
+		if(user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
