@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.alex.cursospringudemy.services.exceptions.FileException;
 
-
 @Service
 public class ImageService {
 
@@ -53,9 +52,12 @@ public class ImageService {
 		}
 	}
 
+	//função para recortar a img
 	public BufferedImage cropSquare(BufferedImage sourceImg) {
 		int min = (sourceImg.getHeight() <= sourceImg.getWidth()) ? sourceImg.getHeight() : sourceImg.getWidth();
-		return Scalr.crop(sourceImg, (sourceImg.getWidth() / 2) - (min / 2), (sourceImg.getHeight() / 2) - (min / 2),
+		return Scalr.crop(sourceImg, 
+				(sourceImg.getWidth() / 2) - (min / 2), //coordenada 1
+				(sourceImg.getHeight() / 2) - (min / 2), //coordenada 2
 				min, min);
 	}
 
