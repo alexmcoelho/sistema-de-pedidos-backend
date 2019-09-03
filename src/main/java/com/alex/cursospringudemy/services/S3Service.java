@@ -1,7 +1,6 @@
 package com.alex.cursospringudemy.services;
 
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -14,11 +13,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.amazonaws.AmazonServiceException;
+import com.alex.cursospringudemy.services.exceptions.FileException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.alex.cursospringudemy.services.exceptions.FileException;
 
 @Service
 public class S3Service {
