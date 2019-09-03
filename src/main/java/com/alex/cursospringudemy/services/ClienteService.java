@@ -1,5 +1,6 @@
 package com.alex.cursospringudemy.services;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alex.cursospringudemy.domain.Cidade;
 import com.alex.cursospringudemy.domain.Cliente;
@@ -19,7 +21,6 @@ import com.alex.cursospringudemy.domain.enums.Perfil;
 import com.alex.cursospringudemy.domain.enums.TipoCliente;
 import com.alex.cursospringudemy.dto.ClienteDTO;
 import com.alex.cursospringudemy.dto.ClienteNewDTO;
-import com.alex.cursospringudemy.repositories.CategoriaRepository;
 import com.alex.cursospringudemy.repositories.ClienteRepository;
 import com.alex.cursospringudemy.repositories.EnderecoRepository;
 import com.alex.cursospringudemy.security.UserSS;
@@ -33,15 +34,18 @@ public class ClienteService {
 	private ClienteRepository repo;
 	private EnderecoRepository enderecoRepository;
 	private BCryptPasswordEncoder pe;
+	private S3Service s3Service;
 	
 	@Autowired
     public ClienteService(
     		ClienteRepository repo,
     		EnderecoRepository enderecoRepository,
-    		BCryptPasswordEncoder pe) {
+    		BCryptPasswordEncoder pe,
+    		S3Service s3Service) {
 		this.repo = repo;
 		this.enderecoRepository = enderecoRepository;
 		this.pe = pe;
+		this.s3Service = s3Service;
 	}
 
 	public Cliente find(Integer id)  {
@@ -123,5 +127,22 @@ public class ClienteService {
 	private void updateData(Cliente newObj, Cliente obj) {
 		newObj.setNome(obj.getNome());
 		newObj.setEmail(obj.getEmail());
+	}
+	
+	public URI uploadProfilePicture(MultipartFile multipartFile) {
+		/*
+		 * UserSS user = UserService.authenticated(); if (user == null) { throw new
+		 * AuthorizationException("Acesso negado"); }
+		 * 
+		 * BufferedImage jpgImage = imageService.getJpgImageFromFile(multipartFile);
+		 * jpgImage = imageService.cropSquare(jpgImage); jpgImage =
+		 * imageService.resize(jpgImage, size);
+		 * 
+		 * String fileName = prefix + user.getId() + ".jpg";
+		 * 
+		 * return s3Service.uploadFile(imageService.getInputStream(jpgImage, "jpg"),
+		 * fileName, "image");
+		 */
+		return s3Service.uploadFile(multipartFile);
 	}
 }

@@ -21,7 +21,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import com.alex.cursospringudemy.security.JWTAuthenticationFilter;
 import com.alex.cursospringudemy.security.JWTAuthorizationFilter;
 import com.alex.cursospringudemy.security.JWTUtil;
-import com.mysql.cj.x.protobuf.MysqlxSession.AuthenticateContinueOrBuilder;
+
+/*Define o que está bloqueado por padrão e o que está liberado por padrão*/
 
 @Configuration
 @EnableWebSecurity
@@ -47,7 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	};
 	
 	private static final String[] PUBLIC_MATCHERS_POST = {
-			"/clientes/**",
+			"/clientes",
+			"/clientes/picture",
 			"/auth/forgot/**"
 	};
 
@@ -70,11 +72,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 	
+	/*è preciso sobrescrever esse método para dizer duas coisas:
+	 * 1. Qual classe service tem o contrato do Spring security
+	 * 2. Qual o método de criptografia da senha
+	 */
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 	}
 
+	/*Permitindo acesso de multiplas fontes para todos os endpoints com as configurações básicas*/
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

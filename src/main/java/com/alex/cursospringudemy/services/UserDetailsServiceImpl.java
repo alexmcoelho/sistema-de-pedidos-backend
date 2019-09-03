@@ -9,6 +9,7 @@ import com.alex.cursospringudemy.domain.Cliente;
 import com.alex.cursospringudemy.repositories.ClienteRepository;
 import com.alex.cursospringudemy.security.UserSS;
 
+/*Classe de serviço conforme contrato do Spring Security*/
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

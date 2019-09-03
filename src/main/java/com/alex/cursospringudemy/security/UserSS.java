@@ -10,6 +10,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.alex.cursospringudemy.domain.enums.Perfil;
 
+
+/*Aplica as regras de autorização*/
 public class UserSS implements UserDetails {
 
 	private static final long serialVersionUID = 1L;

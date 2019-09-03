@@ -13,12 +13,14 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class JWTUtil {
 
+	//importando configurações que foram definidas lá no arquivo aplication.properties
 	@Value("${jwt.secret}")
 	private String secret;
 
 	@Value("${jwt.expiration}")
 	private Long expiration;
 
+	//método que gera o token
 	public String generateToken(String username) {
 		return Jwts.builder().setSubject(username).setExpiration(new Date(System.currentTimeMillis() + expiration))
 				.signWith(SignatureAlgorithm.HS512, secret.getBytes()).compact();
