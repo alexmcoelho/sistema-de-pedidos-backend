@@ -9,8 +9,8 @@
 		<version>2.1.1.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.alex.cursospringudemy</groupId>
-	<artifactId>cursospringudemy</artifactId>
+	<groupId>com.alex.sistemadepedidosbackend</groupId>
+	<artifactId>sistemadepedidosbackend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>cursospringudemy</name>
 	<description>Demo project for Spring Boot</description>
