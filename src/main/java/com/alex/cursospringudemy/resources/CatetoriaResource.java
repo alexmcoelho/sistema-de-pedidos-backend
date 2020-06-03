@@ -36,6 +36,13 @@ public class CatetoriaResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@RequestMapping(value="/nome/{nome}", method = RequestMethod.GET)
+	public ResponseEntity<?> findByNome(@PathVariable String nome) {
+		List<Categoria> list = service.findByNome(nome);
+		List<CategoriaDTO> listDto = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
+	}
+	
 	@PreAuthorize("hasAnyRole('ADMIN')") 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDTO) {
@@ -73,7 +80,7 @@ public class CatetoriaResource {
 	@RequestMapping(value="/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<CategoriaDTO>> findPage(
 			@RequestParam(value="page", defaultValue="0") Integer page, 
-			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
+			@RequestParam(value="linesPerPage", defaultValue="3") Integer linesPerPage, 
 			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, 
 			@RequestParam(value="direction", defaultValue="ASC") String direction) {
 		Page<Categoria> list = service.findPage(page, linesPerPage, orderBy, direction);

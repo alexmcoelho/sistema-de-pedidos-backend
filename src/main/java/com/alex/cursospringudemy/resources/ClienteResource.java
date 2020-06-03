@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.alex.cursospringudemy.domain.Categoria;
 import com.alex.cursospringudemy.domain.Cliente;
+import com.alex.cursospringudemy.dto.CategoriaDTO;
 import com.alex.cursospringudemy.dto.ClienteDTO;
 import com.alex.cursospringudemy.dto.ClienteNewDTO;
 import com.alex.cursospringudemy.services.ClienteService;
@@ -42,6 +44,13 @@ public class ClienteResource {
 	public ResponseEntity<Cliente> find(@RequestParam(value="value") String email) {
 		Cliente obj = service.findByEmail(email);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@RequestMapping(value="/nome/{nome}", method = RequestMethod.GET)
+	public ResponseEntity<?> findByNome(@PathVariable String nome) {
+		List<Cliente> list = service.findByNome(nome);
+		List<ClienteDTO> listDto = list.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)

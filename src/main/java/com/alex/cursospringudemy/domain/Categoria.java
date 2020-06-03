@@ -1,6 +1,7 @@
 package com.alex.cursospringudemy.domain;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -23,6 +25,8 @@ public class Categoria implements Serializable {
 	private String nome;
 	@ManyToMany(mappedBy = "categorias")
 	private List<Produto> produtos = new ArrayList<>();
+	@Transient
+	private String codDescricao;
 	
 	public Categoria() {
 	}
@@ -77,6 +81,17 @@ public class Categoria implements Serializable {
 
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
+	}
+	
+	public String getCodDescricao() {
+		if(this.id != null) {
+			codDescricao = new DecimalFormat("000000").format(this.id) + " - " + this.nome;
+		}
+		return codDescricao;
+	}
+
+	public void setCodDescricao(String codDescricao) {
+		this.codDescricao = codDescricao;
 	}
 	
 }

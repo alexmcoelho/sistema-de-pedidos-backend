@@ -29,6 +29,10 @@ public class CategoriaService {
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 	
+	public List<Categoria> findByNome(String nome)  {
+		return repo.findByNome(nome);
+	}
+	
 	public Categoria insert(Categoria obj) {
 		obj.setId(null);
 		return repo.save(obj);

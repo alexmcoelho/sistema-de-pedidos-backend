@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alex.cursospringudemy.domain.Categoria;
 import com.alex.cursospringudemy.domain.Cidade;
 import com.alex.cursospringudemy.domain.Cliente;
 import com.alex.cursospringudemy.domain.Endereco;
@@ -61,6 +62,10 @@ public class ClienteService {
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
+	}
+	
+	public List<Cliente> findByNome(String nome)  {
+		return repo.findByNome(nome);
 	}
 
 	@Transactional
